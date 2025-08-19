@@ -1,0 +1,12 @@
+- name: Dynamic variable
+  hosts: localhost
+  connection: local
+  vars_prompt:
+    - name: env
+      prompt: "Enter the prod/dev environment"
+      private: no
+  vars_files: "secrets/{{ env }}_secrets.yml"
+  tasks:
+    - name: Printing values
+      debug:
+        msg: "The database password for {{ env }} is {{ db_password }}"
